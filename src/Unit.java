@@ -69,10 +69,6 @@ public abstract class Unit implements Attack {
         this.level = level;
     }
 
-    public int getRandomNumber() {
-        return (int) (Math.random() * 100);
-    }
-
     public void levelUp(){
         if (exp>=boundary){
             setLevel(getLevel()+1);

@@ -53,7 +53,6 @@ public class Battle {
             attacker.setExp(attacker.getExp() + defender.getExp());
             attacker.setGold(attacker.getGold() + defender.getGold());
             //увеличиваем уровень при посте опыта
-            //attacker.setLevel(Math.round(attacker.getExp()/100));
             attacker.levelUp();
 
             //тут пишем метод колбэк

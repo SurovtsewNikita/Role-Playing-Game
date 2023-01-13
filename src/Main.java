@@ -34,7 +34,6 @@ public class Main {
             System.out.println(String.format("Спасти наш мир от драконов и чудовищь вызвался путник %s!", player.getName()));
             printMenu();
         }
-        //отдельным методом выводим меню
         //варианты команд
         switch (br.readLine()) {
             //Торговец
@@ -52,8 +51,6 @@ public class Main {
                     if (br.readLine().equals("Да")) {
                         System.out.println("Выбирайте! (Зелье / Камень Силы / Камень ловкости)");
                         trading(br.readLine());
-                        //System.out.println("Спасибо что зашли! Удачи вам в бою!");
-                        //command("2");
                     } else {
                         check = false;
                         System.out.println("До новых встречь, путник");
@@ -77,9 +74,6 @@ public class Main {
                 command("2");
             }
         }
-
-        //снова ждем команды от пользователя
-        //command(br.readLine());
     }
 
     interface Callback {
