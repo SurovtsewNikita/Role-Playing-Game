@@ -61,7 +61,7 @@ public class Main {
             }
             break;
             case "2", "Да": {
-                commitFight();//ошибка
+                commitFight();
             }
             break;
             case "3": {
