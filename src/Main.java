@@ -8,6 +8,7 @@ public class Main {
     private static Unit player = null;
     private static Battle battle = null;
     private static Merchant trader = new Merchant();
+
     public static void main(String[] args) {
         //инициируем чтение BufferedReader
         br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,18 +24,17 @@ public class Main {
         }
 
     }
+
     //в этом методе реализуем рекурсию в метод будет передаваться буферридер
     private static void command(String str) throws IOException {
+        boolean check = true, first = true;
         //Если это первый запуск, то мы должны создать игрока, именем будет служить первая введенная строка из консоли
         if (player == null) {
-            player = new Character(str, 100, 20, 20, 13, 50, 0);
-            String.format("Спасти наш мир от драконов и леших вызвался богатырь %s!", player.getName());
-
+            player = new Character(str, 100, 20, 20, 25, 50, 0);
+            System.out.println(String.format("Спасти наш мир от драконов и чудовищь вызвался путник %s!", player.getName()));
+            printMenu();
         }
         //отдельным методом выводим меню
-        printMenu();
-
-        boolean first =true;
         //варианты команд
         switch (br.readLine()) {
             //Торговец
@@ -42,46 +42,44 @@ public class Main {
                 if (first) {
                     System.out.println("Здравствуй путник и добро пожаловать в мой магазин");
                     first = false;
-                }
-                else System.out.println("Снова здраствуй путник");
+                } else System.out.println("Снова здраствуй путник");
                 System.out.println("Что изволите купить? (Зелье / Камень Силы / Камень ловкости)");
                 //Метод покупок
                 trading(br.readLine());
                 //диалог с продавцом
-                while () {
+                while (check) {
                     System.out.println("Может что нибудь еще хотите приобрести? (Да/Нет)");
                     if (br.readLine().equals("Да")) {
                         System.out.println("Выбирайте! (Зелье / Камень Силы / Камень ловкости)");
                         trading(br.readLine());
-                        System.out.println("Спасибо что зашли! Удачи вам в бою!");
-                        command("2");
+                        //System.out.println("Спасибо что зашли! Удачи вам в бою!");
+                        //command("2");
                     } else {
+                        check = false;
                         System.out.println("До новых встречь, путник");
+                        printMenu();
                         command("2");
                     }
                 }
             }
             break;
-            case "2": {
+            case "2", "Да": {
                 commitFight();//ошибка
             }
             break;
             case "3": {
+                System.out.println(String.format("На этом приключения %s закончились", player.getName()));
                 System.exit(1);
             }
             break;
-            case "да": {
-                command("2");
-            }
-            break;
-            case "нет": {
+            case "Нет": {
                 printMenu();
-                command(br.readLine());
+                command("2");
             }
         }
 
         //снова ждем команды от пользователя
-        command(br.readLine());
+        //command(br.readLine());
     }
 
     interface Callback {
@@ -101,18 +99,18 @@ public class Main {
         battle.fight(player, creatMonster(), new Callback() {
             @Override
             public void Lost() {
-                System.out.println(String.format("Увы, богатырь %s пал на поле брани смертью храбрых.", player.getName()));
+                System.out.println(String.format("Увы, смерть настигла %s, но память о его деяниях останется", player.getName()));
                 System.exit(0);
             }
 
             @Override
             public void Win() {
-                System.out.println(String.format("%s победил! Параметры %s - здоровье: %d, ловкость: %d, опыт: %d, сила: %d, наличка: %d, уровень: %d",
+                System.out.println(String.format("%s победил! Параметры %s - здоровье: %d, ловкость: %d, опыт: %d, сила: %d, золото: %d, уровень: %d",
                         player.getName(), player.getName(), player.getHp(), player.getAgility(), player.getExp(),
                         player.getStrength(), player.getGold(), player.getLevel()));
-                System.out.println(String.format("Желает ли богатырь %s продолжить вершить подвиги? (да/нет)", player.getName()));
+                System.out.println(String.format("Желает ли %s продолжить приключение? (Да/Нет)", player.getName()));
                 try {
-                    command(br.readLine());
+                    command("2");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -121,9 +119,11 @@ public class Main {
     }
 
     private static Unit creatMonster() {
+        int random = (int) (Math.random() * 10);
         //рандомим появление монстра
-        if ((Math.random() * 10) % 2 == 0) return new Goblin("Uj", 100, 5, 10, 10, 50, 0);
-        else return new Dragon("Dragon", 100, 10, 10, 15, 100, 0);
+        if (random < 5) return new Goblin("Гоблин", 100, 10, 15, 10, 50, 0);//Гоблин появится с шансом 50%
+        else if (random < 9) return new Skeleton("Скелет", 80, 20, 20, 15, 15, 0);//Скелет появвится с шансом 40%
+        else return new Dragon("Dragon", 1000, 100, 150, 150, 100, 3);//Дракон может появится в оставшиеся 10%
 
     }
 
@@ -132,6 +132,6 @@ public class Main {
         System.out.println("Куда вы хотите пойти?");
         System.out.println("1. К торговцу.");
         System.out.println("2. В темный лес.");
-        System.out.println("3. Да ну Вас! Пойду на печи полежу.");
+        System.out.println("3. Возвратится в город.");
     }
 }

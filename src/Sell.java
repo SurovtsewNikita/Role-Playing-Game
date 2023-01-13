@@ -1,3 +1,3 @@
 public interface Sell {
-    void sell(String item,Character character);
+    void sell(String item, Character character);
 }

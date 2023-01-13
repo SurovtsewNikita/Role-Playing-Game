@@ -18,8 +18,8 @@ public class Merchant implements Sell {
                 cost = 50;
                 if (goldT >= cost) {
                     character.setGold(goldT - cost);
-                    character.setStrength(character.getStrength() + 10);
-                    System.out.println(String.format("Сила повышена на 10" + "\n" + "Остаток золота: %d", character.getGold()));
+                    character.setStrength(character.getStrength() + 15);
+                    System.out.println(String.format("Сила повышена на 15" + "\n" + "Остаток золота: %d", character.getGold()));
                 } else {
                     System.out.println("Недостаточно средств для покупки");
                 }
@@ -28,16 +28,16 @@ public class Merchant implements Sell {
                 cost = 50;
                 if (goldT >= cost) {
                     character.setGold(goldT - cost);
-                    character.setAgility(character.getAgility() + 10);
-                    System.out.println(String.format("Ловкость повышена на 10" + "\n" + "Остаток золота: %d", character.getGold()));
+                    character.setAgility(character.getAgility() + 15);
+                    System.out.println(String.format("Ловкость повышена на 15" + "\n" + "Остаток золота: %d", character.getGold()));
                 } else {
                     System.out.println("Недостаточно средств для покупки");
                 }
                 break;
             default:
                 System.out.println("Извини, но у меня нет такого товара");
-            }
         }
+    }
 
 }
 

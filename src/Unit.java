@@ -1,6 +1,7 @@
 public abstract class Unit implements Attack {
     String name;
     int hp, gold, exp, strength, agility, level;
+    int boundary = 50;
 
     public int getLevel() {
         return level;
@@ -68,14 +69,25 @@ public abstract class Unit implements Attack {
         this.level = level;
     }
 
-    public int getRandomNumber(){
-        return (int)(Math.random()*100);
+    public int getRandomNumber() {
+        return (int) (Math.random() * 100);
     }
+
+    public void levelUp(){
+        if (exp>=boundary){
+            setLevel(getLevel()+1);
+            setAgility(getAgility()+5);
+            setStrength(getStrength()+5);
+            boundary=(int)(boundary*(1.3));
+        }
+
+    }
+
     @Override
     public int attack() {
-        if (agility*3>getRandomNumber())
-            if (Math.random()*10%10==0)
-                return strength*2;
+        if (agility * 3 > (int) (Math.random() * 100))
+            if ((Math.random() * 10) % 4 == 0)
+                return strength * 2;
         return strength;
     }
 }

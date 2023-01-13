@@ -44,7 +44,7 @@ public class Battle {
         }
         //проверяем
         if (defenderHealth <= 0 && defender instanceof Character) {
-            System.out.println(String.format("Богатырь %s пал в бою!", defender.getName()));
+            System.out.println(String.format("Герой %s пал в бою!", defender.getName()));
             //тут надо дописать метод колбэк
             fightCallback.Lost();
             return true;
@@ -53,7 +53,8 @@ public class Battle {
             attacker.setExp(attacker.getExp() + defender.getExp());
             attacker.setGold(attacker.getGold() + defender.getGold());
             //увеличиваем уровень при посте опыта
-            attacker.setLevel(Math.round(attacker.getExp()/100));
+            //attacker.setLevel(Math.round(attacker.getExp()/100));
+            attacker.levelUp();
 
             //тут пишем метод колбэк
             fightCallback.Win();
